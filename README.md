@@ -2,59 +2,59 @@
 
 ![License](https://img.shields.io/github/license/davidsonbsilva/gongo.svg) ![Status](https://img.shields.io/badge/status-stopped-red)
 
-![Captura de tela do Gongo](cover.png)
+![Print screen of Gongo](cover.png)
 
-[[Ver em Português](README.pt-br.md)]
+[[Ver em Português](README.md)]
 
-**Gongo** é um simples chat construído em C# para fins de aprendizado sobre sockets durante a disciplina de Redes de Computadores na [Universidade Federal dos Vales do Jequitinhonha e Mucuri](http://portal.ufvjm.edu.br/).
+**Gongo** is a simple chat built in C# for the purpose of learning about sockets during the Computer Networks course at [Federal University of Jequitinhonha and Mucuri Valleys](http://portal.ufvjm.edu.br/).
 
-Trata-se de uma aplicação provida de uma arquitetura cliente-servidor que permite que múltiplos usuários se comuniquem simultaneamente através do protocolo TCP. Até o momento, o único idioma suportado para **Gongo** é Português (Brasil).
+It is an app provided with a client-server architecture that allows multiple users to communicate simultaneously through the TCP protocol. So far, the only supported language for **Gongo** is Portuguese (Brazil).
 
-## Requisitos
+## Requirements
 
 - .Net Framework 4.8
   
-> O software foi testado em ambiente Windows. Caso tenha problemas com execução em outros ambientes, [entre em contato](#contato).
+> The software was tested in a Windows environment. If you have problems running in other environments, [contact us](#contact).
 
-## Instalação
+## Installation
 
-Clone o repositório:
+Clone the repository:
 
 ```
 $ git clone https://github.com/davidsonbrsilva/gongo.git
 ```
 
-Acesse a pasta raiz do projeto:
+Access the project root folder:
 
 ```
 cd gongo
 ```
 
-Construa a aplicação:
+Build the app:
 
 ```
 dotnet build
 ```
 
-## Guia rápido de uso
+## Usage quick guide
 
-Há dois projetos executáveis na mesma solução, **Gongo Server** e **Gongo Client**. Inicie o arquivo `GongoServer.exe` para executar o servidor da aplicação. Em seguida, abra o arquivo `GongoClient.exe` para começar uma conversa.
+There are two executable projects in the same solution, **Gongo Server** and **Gongo Client**. Start the `GongoServer.exe` file to run the application server. Then open the `GongoClient.exe` file to start a conversation.
 
-_Gongo Client_ usará o seu IP local como nome de usuário por padrão, mas, você pode alterar isso a qualquer momento. Basta clicar em `(alterar)`, digitar o novo nome de usuário que deseja no campo de mensagem e clicar em `Confirmar`.
+_Gongo Client_ will use your local IP as the username by default, but you can change this at any time. Just click `(alterar)`, type the new username you want in the message field and click `Confirmar`.
 
-Mensagens enviadas por você são exibidas em roxo e mensagens enviadas por outros usuários são verde.
+Messages sent by you are displayed in purple and messages sent by other users are green.
 
-Você pode simular uma conversa entre múltiplos usuários iniciando e enviando mensagens por meio de mais de uma instância de _Gongo Client_.
+You can simulate a conversation between multiple users by initiating and sending messages through more than one instance of _Gongo Client_.
 
-## Arquivos de Configuração do Gongo
+## Gongo settings files
 
-_Gongo Server_ e _Gongo Client_ procurarão por seus respectivos arquivos de configuração antes de iniciar a aplicação.
+_Gongo Server_ and _Gongo Client_ look for their respective configuration files before starting the application.
 
-### Arquivo de configurações do Gongo Server
+### Gongo Server settings file
 
-Por padrão, _Gongo Server_ receberá conexões de qualquer endereço de IP e as escutará na porta `22777`. Porém, você pode sobrescrever essas configurações.
+By default, _Gongo Server_ will receive connections from any IP address and listen for them on port `22777`. However, you can override these settings.
 
-Para isso, crie um arquivo chamado `ServerSettings.json` no mesmo diretório em que se encontra o arquivo executável do _Gongo Server_, com a seguinte estrutura:
+To do so, create a file called `ServerSettings.json` in the same directory where the _Gongo Server_ executable file is located, with the following structure:
 
 ```json
 {
@@ -63,15 +63,15 @@ Para isso, crie um arquivo chamado `ServerSettings.json` no mesmo diretório em 
 }
 ```
 
-Ao especificar `any` na propriedade `host`, você informa ao _Gongo Server_ que deseja receber conexões de qualquer endereço de IP. Você também pode informar um endereço de IP para que _Gongo Server_ receba conexões apenas deste em específico.
+By specifying `any` in the `host` property, you tell _Gongo Server_ that you want to receive connections from any IP address. You can also inform an IP address so that _Gongo Server_ only receives connections from this specific one.
 
-Lembre-se que se você usar uma porta diferente para o Gongo Server, as instâncias do _Gongo Client_ também devem se conectar na mesma porta liberada pelo servidor.
+Remember that if you use a different port for the Gongo Server, the _Gongo Client_ instances must also connect to the same port released by the server.
 
-### Arquivo de configurações do Gongo Client
+### Gongo Client settings file
 
-Por padrão, _Gongo Client_ considerará que _Gongo Server_ está rodando em sua máquina local e tentará se conectar ao seu IP na porta padrão do servidor (22777).
+By default, _Gongo Client_ will assume that _Gongo Server_ is running on your local machine and will try to connect to your IP on the server's default port (22777).
 
-Para mudar isso, crie um arquivo de configurações no mesmo diretório do executável do _Gongo Client_ chamado `ClientSettings.json` com a seguinte estrutura:
+To change this, create a settings file in the same directory as the _Gongo Client_ executable called `ClientSettings.json` with the following structure:
 
 ```json
 {
@@ -80,10 +80,10 @@ Para mudar isso, crie um arquivo de configurações no mesmo diretório do execu
 }
 ```
 
-## Contato
+## Contact
 
-Caso necessite, envie um e-mail para <davidsonbruno@outlook.com>.
+If you need, send an e-mail to <davidsonbruno@outlook.com>.
 
-## Licença
+## License
 
 [MIT](LICENSE.md) Copyright (c) 2019, Davidson Bruno.
