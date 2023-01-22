@@ -67,7 +67,7 @@ namespace Gongo.Server
         /// <summary>
         /// Exibe uma mensagem no console do servidor.
         /// </summary>
-        private void Notify(string message)
+        public void Notify(string message)
         {
             Console.WriteLine("[{0}]: {1}", DateTime.Now.ToString("hh:mm:ss"), message);
         }
