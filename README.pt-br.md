@@ -1,6 +1,6 @@
 # Gongo
 
-![Licença](https://img.shields.io/github/license/davidsonbsilva/gongo.svg) ![Status](https://img.shields.io/badge/status-stopped-red)
+![Licença](https://img.shields.io/github/license/davidsonbrsilva/gongo.svg) ![Status](https://img.shields.io/badge/status-stopped-red)
 
 ![Captura de tela do Gongo](cover.png)
 
