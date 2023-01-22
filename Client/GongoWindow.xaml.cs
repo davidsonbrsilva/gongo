@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Web.Script.Serialization;
 using Gongo.Library;
+using System.Net;
 
 namespace Gongo.Client
 {
@@ -59,12 +60,12 @@ namespace Gongo.Client
                 }
             }
 
-            reader.Close();
-            writer.Close();
-            client.Close();
+            reader?.Close();
+            writer?.Close();
+            client?.Close();
         }
 
-        private void AlterUsername()
+        private void ChangeUsername()
         {
             if (writer != null)
             {
@@ -84,13 +85,6 @@ namespace Gongo.Client
                     string serialized = serializer.Serialize(request);
 
                     SendMessageToServer(serialized);
-
-                    /*
-                    MessageTextBlock.Clear();
-                    UsernameTextBox.Text = username;
-
-                    ChangeDefaultButtonToSend();
-                    */
                 }
             }
             else
@@ -327,6 +321,11 @@ namespace Gongo.Client
                 Notify(response.ActionMessage);
             }
         }
+
+        private string GetLocalIPAddress() =>
+            Dns.GetHostAddresses(Dns.GetHostName())
+                .FirstOrDefault(address => address.AddressFamily == AddressFamily.InterNetwork)
+                .ToString();
         #endregion
 
         #region Events
@@ -368,7 +367,7 @@ namespace Gongo.Client
                 }
                 else if ((string)SendButton.Content == "Confirmar")
                 {
-                    AlterUsername();
+                    ChangeUsername();
                 }
             }
         }
@@ -379,29 +378,38 @@ namespace Gongo.Client
             {
                 SendMessage();
             }
-            else if((string)SendButton.Content == "Confirmar")
+            else if ((string)SendButton.Content == "Confirmar")
             {
-                AlterUsername();
+                ChangeUsername();
             }
         }
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string settingsFile = Directory.GetCurrentDirectory() + "/clientsettings.txt";
+            string settingsFile = Directory.GetCurrentDirectory() + "/ClientSettings.json";
 
             try
             {
-                if (!File.Exists(settingsFile))
+                var settings = new Settings() { Host = GetLocalIPAddress(), Port = 22777 };
+
+                if (File.Exists(settingsFile))
                 {
-                    throw new FileNotFoundException("O arquivo de configurações não foi encontrado.");
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                    string text = File.ReadAllText(settingsFile);
+                    var json = serializer.Deserialize<Settings>(text);
+
+                    if (json != null)
+                    {
+                        settings.Host = json.Host ?? settings.Host;
+                        settings.Port = json.Port ?? settings.Port;
+                    }
                 }
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (settings.Host == null)
+                    throw new Exception("Parece que você não está conectado à internet.");
 
-                string text = File.ReadAllText(settingsFile);
-                dynamic settings = serializer.DeserializeObject(text);
-
-                Connect(settings["host"], (int)settings["port"]);
+                Connect(settings.Host, settings.Port.Value);
 
                 listenerThread = new Thread(Listen)
                 {
@@ -409,6 +417,7 @@ namespace Gongo.Client
                     IsBackground = true,
                     Priority = ThreadPriority.Highest
                 };
+
                 listenerThread.Start(this);
 
                 UsernameTextBox.Text = username;
@@ -417,7 +426,11 @@ namespace Gongo.Client
             {
                 Notify(ex.Message);
             }
-            catch(SocketException ex)
+            catch (SocketException ex)
+            {
+                Notify(ex.Message);
+            }
+            catch (Exception ex)
             {
                 Notify(ex.Message);
             }
