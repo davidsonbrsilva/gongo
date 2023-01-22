@@ -1,10 +1,10 @@
 # Gongo
 
-![License](https://img.shields.io/github/license/davidsonbsilva/gongo.svg) ![Status](https://img.shields.io/badge/status-stopped-red)
+![License](https://img.shields.io/github/license/davidsonbrsilva/gongo.svg) ![Status](https://img.shields.io/badge/status-stopped-red)
 
 ![Print screen of Gongo](cover.png)
 
-[[Ver em Português](README.md)]
+[[Ver em Português](README.pt-br.md)]
 
 **Gongo** is a simple chat built in C# for the purpose of learning about sockets during the Computer Networks course at [Federal University of Jequitinhonha and Mucuri Valleys](http://portal.ufvjm.edu.br/).
 
